@@ -21,7 +21,7 @@ prescalar 1:64 =>  Tclock = 64 * 1 = 64 micro second
 extern void timer0_init (void)
 {
 	// 195
-	OCR0 = 200;        // it needs update 
+	OCR0 = 49;        // it needs update 
 	TIMSK |= 0x02;     // enable interrupt
 	TCNT0 =0;          // clear counter
 	
@@ -31,7 +31,7 @@ extern void timer0_init (void)
 
 extern void timer1_init (void)
 {
-	OCR1A = 12500;       
+	OCR1A = 12500;        // from omar emad 
 	//OCR1A = 15625;
 	TIMSK |= (1<<4);	 // enable interrupt
 	TCNT1 = 0;			 // clear counter

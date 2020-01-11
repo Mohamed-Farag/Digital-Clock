@@ -17,48 +17,34 @@
 #include "Timer.h"
 #include "state.h"
 
-unsigned char Button_pressed = 0;
+unsigned char count_50ms = 0;
 unsigned char sec = 0;
+unsigned char Button_pressed = 0;
 
 static unsigned char state =Normal_State;        /* global variable in this file only */
 
 
 ISR (INT0_vect)				// Set Button			
 {
-	
-	timer0_init();
+	TCNT0 =0;				// clear counter
+	count_50ms = 0;
 	Button_pressed = 1;
-	
-
 }
 
 
-ISR (TIMER0_COMP_vect)		//each 200 increment the timer
+ISR (TIMER0_COMP_vect)		//each 50ms increment the timer
 {
 	
-	if ( ((PIND & 0x04) == 0x00) && (Button_pressed == 1) )
+	if ( ((PIND & 0x04) == 0x00) && (count_50ms == 4) && (Button_pressed == 1) )
 	{
 				
 		state = state_update();
-		
-		
-	//	TCCR0 =0x00;		//	Timer stopped
+		count_50ms = 0;
+		Button_pressed = 0;	
 	}
 	
-	Button_pressed = 0;
-	//  TCNT0 = 0;             //   clear counter
-	/*
-	// For Test interrupt
-	PORTA = 0xFF;
-	PORTB = 0b11111101;
-	_delay_ms(2000);
-	*/
-	/*
-	if (state != Normal_State)
-	{
-		clock_Update();
-	}
-	*/
+	count_50ms++;
+
 }
 
 ISR (INT1_vect)				// increment switch
@@ -76,20 +62,21 @@ ISR (INT1_vect)				// increment switch
 
 ISR (TIMER1_COMPA_vect)		//each 1 s increment the timer
 {
+	/*
 	sec++;
 	if ( (state == Normal_State) && (sec == 60 ))
 	{
 			sec = 0;
 			clock_Update();
 	}
+	*/
 	
-	/*
 	// if You Want To Test as seconds 
 	if ( (state == Normal_State) )
 	{
 		clock_Update();
 	}
-	*/
+	
 }
 
 
@@ -101,7 +88,7 @@ ISR (INT2_vect)				// Decrement switch
 
 int main(void)
 {
-
+	timer0_init();
 	sw_init();  
 	timer1_init();       
 	Disp_init();
