@@ -31,7 +31,7 @@ extern void timer0_init (void)
 
 extern void timer1_init (void)
 {
-	OCR1A = 12500;        // from omar emad 
+	OCR1A = 12500;       
 	//OCR1A = 15625;
 	TIMSK |= (1<<4);	 // enable interrupt
 	TCNT1 = 0;			 // clear counter
