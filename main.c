@@ -62,20 +62,21 @@ ISR (INT1_vect)				// increment switch
 
 ISR (TIMER1_COMPA_vect)		//each 1 s increment the timer
 {
-	/*
+	
 	sec++;
 	if ( (state == Normal_State) && (sec == 60 ))
 	{
 			sec = 0;
 			clock_Update();
 	}
-	*/
 	
+	/*
 	// if You Want To Test as seconds 
 	if ( (state == Normal_State) )
 	{
 		clock_Update();
 	}
+	*/
 	
 }
 
