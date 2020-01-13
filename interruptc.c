@@ -47,20 +47,12 @@ ISR (TIMER0_COMP_vect)		//each 10ms increment the timer
 
 ISR (INT1_vect)				// increment switch
 {
-	/*
-	// For Test interrupt 
-	PORTA = 0xFF;
-	PORTB = 0b11111110;
-	_delay_ms(2000);
-	*/
-	
 	Increment(state);
 }
 
 
 ISR (TIMER1_COMPA_vect)		//each 1 s increment the timer
-{
-	
+{	
 	sec++;
 	if ( (state == Normal_State) && (sec == 60 ))
 	{
@@ -74,13 +66,11 @@ ISR (TIMER1_COMPA_vect)		//each 1 s increment the timer
 	{
 		clock_Update();
 	}
-	*/
-	
+	*/	
 }
 
 
 ISR (INT2_vect)				// Decrement switch
 {
-	
 	Decrement(state);
 }
