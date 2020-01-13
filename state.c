@@ -8,7 +8,7 @@
 #include "state.h"
 
 
-unsigned char state = Normal_State;
+static unsigned char state = Normal_State;
 
 void sw_init(void)
 {
