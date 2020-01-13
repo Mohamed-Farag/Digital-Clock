@@ -21,17 +21,17 @@ prescalar 1:64 =>  Tclock = 64 * 1 = 64 micro second
 extern void timer0_init (void)
 {
 	// 195
-	OCR0 = 49;        // it needs update 
+	OCR0 = 125;        //  ( fire every 10 ms )
 	TIMSK |= 0x02;     // enable interrupt
 	TCNT0 =0;          // clear counter
 	
 	
-	TCCR0 = 0x8D;      // 0b10001101    ,  Normal port operation, OC0 disconnected, 1024 prescalar , CTC , Top = OCR0
+	TCCR0 = 0x8B;      // 0b10001011    ,  Normal port operation, OC0 disconnected, 64 prescalar , CTC , Top = OCR0
 }
 
 extern void timer1_init (void)
 {
-	OCR1A = 12500;        // from omar emad 
+	OCR1A = 12500;        // ( fire every 1000 ms )
 	//OCR1A = 15625;
 	TIMSK |= (1<<4);	 // enable interrupt
 	TCNT1 = 0;			 // clear counter
